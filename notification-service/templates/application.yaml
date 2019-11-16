@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: {{ template "notification-service.fullname" . }}-deployment
 spec:
-    replicas: 1
+  replicas: 1
   selector:
     matchLabels:
       app: {{ template "notification-service.fullname" . }}-notification_service
