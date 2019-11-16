@@ -1,0 +1,37 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ template "notification-service.fullname" . }}-deployment
+spec:
+    replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "notification-service.fullname" . }}-notification_service
+  template:
+      metadata:
+        labels:
+          app: {{ template "notification-service.fullname" . }}-notification_service
+      spec:
+        containers:
+          - name: notification-service
+            image: "mongo:3.5.11"
+            imagePullPolicy: IfNotPresent
+            env:
+              - name: MONGO_URL
+                value: mongodb://{{template  "mongodb.fullname" . }}.default.svc.cluster.local:27017/{{ .Values.DbName}}
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ template "notification-service.fullname" . }}-service
+spec:
+  type: NodePort
+  selector:
+    app: {{ template "notification-service.fullname" . }}-notification-service0.3
+  ports:
+    - port: 8080
+      targetPort: 8080
+
+
+
