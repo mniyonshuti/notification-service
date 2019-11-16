@@ -4,9 +4,9 @@ containerID := $(shell docker ps -a -q --filter ancestor=mniyonshuti/notificatio
 
 #===================  gradle  ===========================
 clean:
-	./gradlew clean
+	./mnvw clean
 build: clean
-	./gradlew  bootJar
+	./mvnw  install
 run-local: build
 	java -jar build/libs/ServiceA-*.jar
 
@@ -99,7 +99,7 @@ k8s-info:
 
 
 
-k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-persistence-create k8s-deployment-create k8s-service-create k8s-service-url
+k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-deployment-create k8s-service-create
 	echo "Done"
 k8s-all-delete: k8s-configmap-delete k8s-secrets-delete k8s-deployment-delete k8s-service-delete
 	echo "Done"
