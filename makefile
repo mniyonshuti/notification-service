@@ -4,7 +4,7 @@ containerID := $(shell docker ps -a -q --filter ancestor=mniyonshuti/notificatio
 
 #===================  gradle  ===========================
 clean:
-	./mnvw clean
+	./mvnw clean
 build: clean
 	./mvnw  install
 run-local: build
